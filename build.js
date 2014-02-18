@@ -1,10 +1,9 @@
 // build.js
 // david vokoun  <david@vokoun.me>
 
-// node build.js <scriptfile> <outputfile>
-//   scriptfile: the name of the script file in the js dir (without the .js)
-//   outputfile: the name of the file to write in the build dir
-
+// node build.js <scriptfile>
+//   scriptfile: the name of the script file in the js dir
+//               this name also is the name of the .html file that is output
 // ex: node build.js test.js
 
 var fs = require('fs')
@@ -24,10 +23,9 @@ if(!script) {
 } else {
 
   var min = UglifyJS.minify(script.toString(), {mangle:true, fromString: true }).code
-
     , output = shim.replace('<%= script %>', min)
     , res = ''
-      ;
+    ;
 
   fs.writeFileSync( name + '.html', output);  
 
