@@ -1,0 +1,10 @@
+{
+	"name": "js1k-builder",
+	"version": "0.0.1",
+	"description": "composes test pages from js1k shim and your js, minifies and checks size",
+	"author": "David Vokoun",
+	"repo": "http://github.com/cachedfailure/jstk-builder",
+	"dependencies": {
+		"uglify-js": "*"
+	}
+}
