@@ -1,2 +1,2 @@
 // test.js
-// Hello, World
+alert('Hello, World');
