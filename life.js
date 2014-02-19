@@ -38,8 +38,8 @@ THE SOFTWARE.
 */
  
 
-var w = window.innerWidth
-  , h = window.innerHeight
+var w = innerWidth
+  , h = innerHeight
 
   // alias for x,y separator when finding cell key
   , _ = ','
@@ -48,17 +48,17 @@ var w = window.innerWidth
   , s = 10
 
   // screen width,height in cells
-  , sw = w/s|0
-  , sh = h/s|0
+  , W = w/s|0
+  , H = h/s|0
 
   // cells
   , z = {}
  
   // cell buffer
-  , zb = {}
+  , Z = {}
 
   // cell seed
-  , zs = {} 
+  , V = {'5,5':1,'6,5':1,'7,5':1,'7,4':1,'6,3':1} 
   
   // are we in running mode?
   , r = 0
@@ -95,10 +95,10 @@ function N(x,y) {
 function S() {
   g++;
 
-  z = JSON.parse(JSON.stringify(zb));
+  z = JSON.parse(JSON.stringify(Z));
 
-  for(var y=0; y<sh; y++) {
-    for(var x=0; x<sw; x++) {
+  for(var y=0; y<H; y++) {
+    for(var x=0; x<W; x++) {
       
       var n = N(x,y); 
       
@@ -106,19 +106,19 @@ function S() {
       if(G(x,y)) {
 
         if(n < 2 || n > 3)
-          delete zb[x+_+y];
+          delete Z[x+_+y];
       
       } else {
 
         if(n == 3)
-          zb[x+_+y] = 1;
+          Z[x+_+y] = 1;
       
       }
   
     } 
   }
 
-  P(zb, 1);
+  P(Z, 1);
 }
 
 // paint: the cells and brief help text
@@ -130,11 +130,12 @@ function P(o,f) {
     c[f?'fillRect':'strokeRect'](p[0]*s, p[1]*s, s, s);
   });
   
-  c.fillText('A)ANIM S)NEW D)EDIT F)FORW <'+(r?'R':'E')+'> G'+g ,s,s);
+  c.fillText('<'+ (r?'Run':'Edit')+'> A) ANIM S) NEW D) EDIT F) FORW  Gen '+g ,s,s);
 }
 
 // Go ahead and paint it
-P(zs);
+P(V);
+
 
 // animate: automatically animate generations
 function A() {
@@ -145,50 +146,50 @@ function A() {
 }
 
 // Event Handlers
-window.onclick = function(e) {
+onclick = function(e) {
   // toggle cell at click
   if(!r) {
     var x = e.clientX/s|0
       , y = e.clientY/s|0
       ;
 
-    if(!zs[x+_+y])
-      zs[x+_+y] = 1;
+    if(!V[x+_+y])
+      V[x+_+y] = 1;
     else
-      delete zs[x+_+y];
+      delete V[x+_+y];
     
-    P(zs);
+    P(V);
   }
 };
 
-window.onkeydown = function(e) {
+onkeydown = function(e) {
   var k = e.which;
 
   if(k == 70) { // f key: step forward or start
     if(r) {
       S();
     } else {
-      E(zs, function(k) {
-        zb[k] = zs[k];
-        z[k] = zs[k];
+      E(V, function(k) {
+        Z[k] = V[k];
+        z[k] = V[k];
       });
       r = 1;
-      P(zb,1);
+      P(Z,1);
     }
   }
   else if(k == 68) { // d key, go back to edit 
     // reset back to the cell seed
     z={};
-    zb={};
+    Z={};
     g=0;
     r = 0; a = 0;
-    P(zs);
+    P(V);
   }
   else if(k==83) { // s key, start fresh
     // reset all vars
     z={};
-    zb={};
-    zs={};
+    Z={};
+    V={};
     g=0;
     r = 0; a = 0;
     P({});
