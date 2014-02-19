@@ -27,6 +27,7 @@ if(!script) {
     , res = ''
     ;
 
+  fs.writeFileSync( name + '.min.js', min);
   fs.writeFileSync( name + '.html', output);  
 
   res = 'OK: '+ 
