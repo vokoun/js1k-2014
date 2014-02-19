@@ -12,7 +12,7 @@ It depends on the node module uglify-js.
 
 	life.min.js
 
-A tiny implementation of Conway's Game of Life: Click to toggle cells, press f to run the game and to step forward, a to animate, d to edit your current pattern, and s to start fresh.
+A tiny implementation of Conway's Game of Life: Click to toggle cells, press `f` to run the game and to step forward, `a` to animate, `d` to edit your current pattern, and `s` to start fresh.
 
 You start off in edit mode. You can tell by the `<E>` in the text up top. This indicator shows `<R>` for run/game mode. (Also, the cells are outlined in edit, while they are filled in run mode) 
 
